@@ -9,6 +9,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- JSTL -->
+    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+
     <!-- Icons library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -40,16 +43,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (Post post : (Collection<Post>) request.getAttribute("posts")) { %>
-                    <tr>
-                        <td>
-                            <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
-                                <i class="fa fa-edit mr-3"></i>
-                            </a>
-                            <%=post.getName()%>
-                        </td>
-                    </tr>
-                    <% } %>
+                    <c:forEach items="${posts}" var="post">
+                        <tr>
+                            <td>
+                                <a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'>
+                                    <i class="fa fa-edit mr-3"></i>
+                                </a>
+                                <c:out value="${post.name}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
