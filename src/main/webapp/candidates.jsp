@@ -39,7 +39,7 @@
                         <th scope="col">Названия</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody valign="middle">
                     <c:forEach items="${candidates}" var="can">
                         <tr>
                             <td>
@@ -47,6 +47,19 @@
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
                                 <c:out value="${can.name}"/>
+                            </td>
+                            <td>
+                                <div class="card text-center" style="width: 15rem;">
+                                    <img src='<c:url value="/photo.do?id=${can.id}"/>' class="card-img-top" alt="Нет фото" width="80px" height="150px">
+                                    <div class="card-body">
+                                        <c:if test="${can.photoId == 0}">
+                                            <a href='<c:url value="/candidate/photo.jsp?id=${can.id}"/>' class="btn btn-primary">Загрузить</a>
+                                        </c:if>
+                                        <c:if test="${can.photoId != 0}">
+                                            <a href='<c:url value="/photo.do?id=${can.id}"/>' class="btn btn-primary">Скачать</a>
+                                        </c:if>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </c:forEach>

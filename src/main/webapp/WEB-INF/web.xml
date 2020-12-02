@@ -32,4 +32,13 @@
     <url-pattern>/index.do</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>PhotoServlet</servlet-name>
+    <servlet-class>ru.job4j.dream.servlet.PhotoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PhotoServlet</servlet-name>
+    <url-pattern>/photo.do</url-pattern>
+  </servlet-mapping>
+
 </web-app>

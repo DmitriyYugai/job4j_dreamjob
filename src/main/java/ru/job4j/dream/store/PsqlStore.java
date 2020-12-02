@@ -2,6 +2,7 @@ package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.Photo;
 import ru.job4j.dream.model.Post;
 
 import java.io.BufferedReader;
@@ -74,7 +75,8 @@ public class PsqlStore implements Store {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
+                    candidates.add(new Candidate(it.getInt("id"),
+                            it.getString("name"), it.getInt("photo_id")));
                 }
             }
         } catch (Exception e) {
@@ -98,6 +100,27 @@ public class PsqlStore implements Store {
             create(candidate);
         } else {
             update(candidate);
+        }
+    }
+
+    @Override
+    public void save(Photo photo, int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps1 =  cn.prepareStatement("INSERT INTO photo(image) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
+             PreparedStatement ps2 =  cn.prepareStatement("UPDATE candidate SET photo_id=? WHERE id=?")
+        ) {
+            ps1.setBytes(1, photo.getImage());
+            ps1.execute();
+            try (ResultSet photoId = ps1.getGeneratedKeys()) {
+                if (photoId.next()) {
+                    photo.setId(photoId.getInt(1));
+                }
+            }
+            ps2.setInt(1, photo.getId());
+            ps2.setInt(2, id);
+            ps2.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -132,6 +155,26 @@ public class PsqlStore implements Store {
                     return new Candidate(
                             rs.getInt("id"),
                             rs.getString("name")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Photo findPhotoById(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement st = cn.prepareStatement(
+                     "select * from photo where id = ?")) {
+            st.setInt(1, id);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new Photo(
+                            rs.getInt("id"),
+                            rs.getBytes("image")
                     );
                 }
             }
