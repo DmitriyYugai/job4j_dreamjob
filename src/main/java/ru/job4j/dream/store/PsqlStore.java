@@ -66,7 +66,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during finding posts", e);
         }
         return posts;
     }
@@ -84,7 +84,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during finding candidates", e);
         }
         return candidates;
     }
@@ -124,7 +124,7 @@ public class PsqlStore implements Store {
             ps2.setInt(2, id);
             ps2.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during saving photo", e);
         }
     }
 
@@ -143,7 +143,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during saving user", e);
         }
     }
 
@@ -162,7 +162,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during finding post by id", e);
         }
         return null;
     }
@@ -182,7 +182,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during finding candidate by id", e);
         }
         return null;
     }
@@ -202,7 +202,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during finding photo by id", e);
         }
         return null;
     }
@@ -224,7 +224,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during finding user by email", e);
         }
         return null;
     }
@@ -241,7 +241,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during saving post", e);
         }
         return post;
     }
@@ -258,7 +258,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during saving candidate", e);
         }
         return candidate;
     }
@@ -271,7 +271,7 @@ public class PsqlStore implements Store {
             ps.setInt(2, post.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during updating post", e);
         }
     }
 
@@ -283,7 +283,7 @@ public class PsqlStore implements Store {
             ps.setInt(2, candidate.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error during updating candidate", e);
         }
     }
 
