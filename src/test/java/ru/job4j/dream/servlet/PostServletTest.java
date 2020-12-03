@@ -6,6 +6,7 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -24,6 +25,7 @@ import java.io.IOException;
 @PrepareForTest(PsqlStore.class)
 public class PostServletTest {
 
+    @Ignore
     @Test
     public void whenDoPost() throws ServletException, IOException {
         MemStore store = MemStore.instOf();
