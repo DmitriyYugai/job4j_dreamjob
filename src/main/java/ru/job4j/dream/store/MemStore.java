@@ -3,14 +3,16 @@ package ru.job4j.dream.store;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.Photo;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MemStore {
+public class MemStore implements Store {
     private static final Logger LOGGER = LoggerFactory.getLogger(PsqlStore.class.getName());
     private static final MemStore INST = new MemStore();
     private static final AtomicInteger POST_ID = new AtomicInteger(4);
@@ -33,6 +35,7 @@ public class MemStore {
         return INST;
     }
 
+    @Override
     public void save(Post post) {
         if (post.getId() == 0) {
             post.setId(POST_ID.incrementAndGet());
@@ -48,12 +51,33 @@ public class MemStore {
         candidates.put(candidate.getId(), candidate);
     }
 
+    @Override
+    public void save(Photo photo, int id) {
+
+    }
+
+    @Override
+    public void save(User user) {
+
+    }
+
+    @Override
     public Post findPostById(int id) {
         return posts.get(id);
     }
 
     public Candidate findCandidateById(int id) {
         return candidates.get(id);
+    }
+
+    @Override
+    public Photo findPhotoById(int id) {
+        return null;
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return null;
     }
 
     public Collection<Post> findAllPosts() {
