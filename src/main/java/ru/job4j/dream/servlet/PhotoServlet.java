@@ -4,6 +4,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Photo;
 import ru.job4j.dream.store.PsqlStore;
 
@@ -19,6 +21,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class PhotoServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PsqlStore.class.getName());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
@@ -29,7 +33,7 @@ public class PhotoServlet extends HttpServlet {
         try (ByteArrayInputStream in = new ByteArrayInputStream(photo.getImage())) {
             resp.getOutputStream().write(in.readAllBytes());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Error during downloading photo", e);
         }
     }
 
@@ -49,7 +53,7 @@ public class PhotoServlet extends HttpServlet {
                 }
             }
         } catch (FileUploadException e) {
-            e.printStackTrace();
+            LOGGER.error("Error during uploading photo", e);
         }
         Photo photo = new Photo(image);
         PsqlStore.instOf().save(photo, Integer.parseInt(req.getParameter("id")));

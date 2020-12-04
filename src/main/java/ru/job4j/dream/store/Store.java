@@ -6,6 +6,7 @@ import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface Store {
     Collection<Post> findAllPosts();
@@ -26,5 +27,5 @@ public interface Store {
 
     Photo findPhotoById(int id);
 
-    User findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email);
 }

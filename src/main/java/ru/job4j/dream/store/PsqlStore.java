@@ -13,10 +13,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class PsqlStore implements Store {
     private static final Logger LOGGER = LoggerFactory.getLogger(PsqlStore.class.getName());
@@ -208,25 +205,25 @@ public class PsqlStore implements Store {
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public Optional<User> findUserByEmail(String email) {
         try (Connection cn = pool.getConnection();
              PreparedStatement st = cn.prepareStatement(
                      "select * from users where email = ?")) {
             st.setString(1, email);
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
-                    return new User(
+                    return Optional.of(new User(
                             rs.getInt("id"),
                             rs.getString("name"),
                             rs.getString("email"),
                             rs.getString("password")
-                    );
+                    ));
                 }
             }
         } catch (Exception e) {
             LOGGER.error("Error during finding user by email", e);
         }
-        return null;
+        return Optional.empty();
     }
 
     private Post create(Post post) {
