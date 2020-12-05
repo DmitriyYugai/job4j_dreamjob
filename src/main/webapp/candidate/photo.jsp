@@ -17,6 +17,16 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        function validate() {
+            var file = $('#file').val();
+            if (file == '') {
+                alert('Прикрепите фотографию');
+                return false;
+            }
+            return true;
+        }
+    </script>
 
     <title>Загрузка фото</title>
 </head>
@@ -28,9 +38,9 @@
                 Загрузка фото
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/photo.do?id=<%=request.getParameter("id")%>" method="post" enctype="multipart/form-data">
+                <form onsubmit="return validate()" action="<%=request.getContextPath()%>/photo.do?id=<%=request.getParameter("id")%>" method="post" enctype="multipart/form-data">
                     <div class="checkbox">
-                        <input type="file" name="file">
+                        <input id="file" type="file" name="file">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

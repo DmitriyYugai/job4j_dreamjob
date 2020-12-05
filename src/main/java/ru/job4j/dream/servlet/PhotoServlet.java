@@ -26,14 +26,16 @@ public class PhotoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        resp.setContentType("name=" + id);
-        resp.setContentType("image/png");
-        resp.setHeader("Content-Disposition", "attachment; filename=\"" + id + "\"");
-        Photo photo = PsqlStore.instOf().findPhotoById(Integer.parseInt(id));
-        try (ByteArrayInputStream in = new ByteArrayInputStream(photo.getImage())) {
-            resp.getOutputStream().write(in.readAllBytes());
-        } catch (IOException e) {
-            LOGGER.error("Error during downloading photo", e);
+        if (!id.equals("0")) {
+            resp.setContentType("name=" + id);
+            resp.setContentType("image/png");
+            resp.setHeader("Content-Disposition", "attachment; filename=\"" + id + "\"");
+            Photo photo = PsqlStore.instOf().findPhotoById(Integer.parseInt(id));
+            try (ByteArrayInputStream in = new ByteArrayInputStream(photo.getImage())) {
+                resp.getOutputStream().write(in.readAllBytes());
+            } catch (IOException e) {
+                LOGGER.error("Error during downloading photo", e);
+            }
         }
     }
 

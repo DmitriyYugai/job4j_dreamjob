@@ -53,7 +53,9 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">Фото</th>
+                        <th scope="col">Город</th>
                     </tr>
                     </thead>
                     <tbody valign="middle">
@@ -67,16 +69,23 @@
                             </td>
                             <td>
                                 <div class="card text-center" style="width: 15rem;">
-                                    <img src='<c:url value="/photo.do?id=${can.id}"/>' class="card-img-top" alt="Нет фото" width="80px" height="150px">
+                                    <img src='<c:url value="/photo.do?id=${can.photoId}"/>' class="card-img-top" alt="Нет фото" width="80px" height="150px">
                                     <div class="card-body">
                                         <c:if test="${can.photoId == 0}">
                                             <a href='<c:url value="/candidate/photo.jsp?id=${can.id}"/>' class="btn btn-primary">Загрузить</a>
                                         </c:if>
                                         <c:if test="${can.photoId != 0}">
-                                            <a href='<c:url value="/photo.do?id=${can.id}"/>' class="btn btn-primary">Скачать</a>
+                                            <a href='<c:url value="/photo.do?id=${can.photoId}"/>' class="btn btn-primary">Скачать</a>
                                         </c:if>
                                     </div>
                                 </div>
+                            </td>
+                            <td>
+                                <c:forEach items="${cities}" var="town">
+                                    <c:if test="${can.cityId eq town.id}">
+                                        <c:out value="${town.name}"/>
+                                    </c:if>
+                                </c:forEach>
                             </td>
                         </tr>
                     </c:forEach>

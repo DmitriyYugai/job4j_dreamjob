@@ -59,6 +59,15 @@
     <url-pattern>/reg.do</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>CityServlet</servlet-name>
+    <servlet-class>ru.job4j.dream.servlet.CityServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CityServlet</servlet-name>
+    <url-pattern>/cities</url-pattern>
+  </servlet-mapping>
+
   <filter>
     <filter-name>AuthFilter</filter-name>
     <filter-class>ru.job4j.dream.filter.AuthFilter</filter-class>

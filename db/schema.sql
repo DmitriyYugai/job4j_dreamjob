@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS candidate;
 DROP TABLE IF EXISTS photo;
+DROP TABLE IF EXISTS city;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS post (
@@ -13,10 +14,20 @@ CREATE TABLE IF NOT EXISTS photo (
      image bytea
 );
 
+CREATE TABLE IF NOT EXISTS city (
+    id SERIAL PRIMARY KEY,
+    name text
+);
+
+INSERT INTO city(name) VALUES ('Moscow');
+INSERT INTO city(name) VALUES ('SPB');
+INSERT INTO city(name) VALUES ('Novosibirsk');
+
 CREATE TABLE IF NOT EXISTS candidate (
     id SERIAL PRIMARY KEY,
     name TEXT,
-    photo_id INTEGER REFERENCES photo(id)
+    photo_id INTEGER REFERENCES photo(id),
+    city_id INTEGER REFERENCES city(id)
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -26,8 +37,13 @@ CREATE TABLE IF NOT EXISTS users (
     password TEXT
 );
 
+SELECT * FROM post;
+
 SELECT * FROM photo;
 
 SELECT * FROM candidate;
 
 SELECT * FROM users;
+
+SELECT * FROM city;
+
