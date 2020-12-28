@@ -5,6 +5,8 @@ jdk: oraclejdk14
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
+script: mvn clean package -DskipTests=true
+
 cache:
   directories:
     - $HOME/.m2
