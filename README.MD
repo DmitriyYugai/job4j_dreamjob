@@ -138,5 +138,5 @@
 Валидация работает на всех формах приложения, даже на форме добавления фото:<br><br>
 ![Проверка валидации](img/usage/valid.PNG)<br>
 ## Контакты
-Почта: studentnstu97@mail.ru<br>
+Почта: dmitry_yugay@mail.ru<br>
 Skype: live:.cid.9cdc925fb48220b4
