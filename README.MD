@@ -10,6 +10,7 @@
 ## Использованные технологии
 * Servlets, JSP
 * PostgreSQL
+* JDBC
 * Collections Framework
 * Apache Commons DBCP (Database Connection Pooling)
 * Apache Commons FileUpload
@@ -17,8 +18,8 @@
 * Mockito
 * Библиотека GSON
 * JSTL, Scriplets
-* HTML, CSS
-* JS, JQuery, Bootstrap
+* HTML, CSS, Bootstrap
+* JS, JQuery 
 * Travis CI
 ## О проекте
 * Данное приложение с web-интерфейсом представляет собой биржу работы:<br><br>
